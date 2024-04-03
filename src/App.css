@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Jost:wght@300;400;500&display=swap');
+
+* {
+    font-family: 'Jost', sans-serif;
+    box-sizing: border-box;            
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    user-select: none;
+    
+}
+
+ul, li {
+    padding: 0;    
+}
+
+
+
+:root {
+    /*Background Home*/
+    --bgContainer_a: rgb(241, 240, 241);
+    --bgContainer_b: rgb(1, 43, 85);
+    --bgHomecolorFilter: rgba(53, 74, 95, 0.56);
+    --bgCartElementContainer: rgba(53, 74, 95, 0.048);
+    /*Formularios*/
+    --bgColorForm: rgb(255, 255, 255);
+
+    /*Input*/
+    --bgColorInput: white;
+    
+    /* BannerPromo */
+    --bgPromo: #f28d3ad9;
+    --colorTextPromo: white;
+
+    /* Slider */
+    --bgCollection: #2D9596;
+    --colorTextCollection: white;
+
+    /* CardProduct */
+    --bgCardProduct: #ddefee;
+    --bgModalProduct: #f9f9f9;
+    --colorBoxShadowCardproduct: rgba(33, 34, 33, 0.115);
+    --colorTextCardPrice: rgb(128, 219, 86);
+    --colorTag: #2D9596;
+    --bgColorBoxService: #845EC2;
+    --bgColorBoxAdmin: #D65DB1;
+    --bgColorBoxCustomer: #e5e5e2;
+    --bgColorSupplier: #FF9671;
+
+    /* Boton */
+    --colorButton: #2D9596;
+    --bgButtonHover: #23696b;
+    --bgButtonHoverHome: #2D9596;
+    --bgButtonHoverHomeCard: #f28d3ad9;
+    --bgButtonCancel: rgb(246, 64, 64);
+    --bgButtonCancelHover: rgb(247, 32, 32);
+
+    /*Texto*/
+    --colorText_a: #11314b;
+    --colorText_b: white;
+    --colorText_c: #2D9596;
+    --colorText_d: red;
+    --colorText_e: rgb(150, 149, 149);
+    --colorText_f: rgb(29, 28, 28);
+    --colorText_opacity: #26507336;
+    --colorText_hover: rgb(232, 232, 232);
+
+    /*Others*/
+    --bgViolet: rgb(251, 92, 92);
+    --textViolet: rgb(152, 12, 187);
+
+    /*border*/
+    --borderContainer: rgba(154, 151, 151, 0.141);
+    --colorBorderButton: #265073;
+    --colorBorderInput: #2650735a;
+
+    /*barScrollColor*/
+    --colorbar_a: #2d949628;
+    --colorbar_b: rgba(33, 34, 33, 0.115);
+    --bgScrollbar: #edf0f3;
+
+}
+
+input, select{
+    height: 40px;
+    background-color: var(--bgColorInput);
+    outline: none;    
+    width: 100%;
+    border: 1px solid var(--colorBorderInput);
+    border-radius: 5px ;
+    -webkit-border-radius: 5px ;
+    -moz-border-radius: 5px ;
+    -ms-border-radius: 5px ;
+    -o-border-radius: 5px ;
+    margin-bottom: 5px;
+    
+    
+}
+input{
+    padding: 10px;
+    font-size: 1em;
+}
+
+select{
+    font-size: 1em;
+    padding-left: 8px;
+    display: flex;
+    flex: 1;
+    
+}
+
+button{
+    height: 40px;
+    width: 80%;
+    background-color: var(--colorButton);
+    border: none;
+    color: var(--bgContainer_a);
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+color: var(--bgContainer_a);
+background-color: var(--bgButtonHover);
+}
+
+
+img{
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
