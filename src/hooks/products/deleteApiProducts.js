@@ -2,13 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import getConfigAuth from "../../utils/getConfigAuth";
 
-const apiProducts = () => {
-    const [productsAPI, setProductsAPI] = useState()
+const deleteApiProducts = () => {
     
-
-
+    
 
     return { };
 }
 
-export default apiProducts;
+export default deleteApiProducts;

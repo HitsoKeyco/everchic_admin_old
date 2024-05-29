@@ -1,7 +1,7 @@
 import axios from "axios";
 import getConfigAuth from "../../utils/getConfigAuth";
 
-const addProductBD = async (data, tags, imageFiles) => {
+const addProductApi = async (data, tags, imageFiles) => {
     const url = import.meta.env.VITE_API_URL;
 
     try {
@@ -49,4 +49,4 @@ const addProductBD = async (data, tags, imageFiles) => {
     }
 };
 
-export default addProductBD;
+export default addProductApi;

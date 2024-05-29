@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import './css/Inventory.css'
 import AddProducts from '../components/Modals/Product/AddProducts'
 import dataInit from '../hooks/data/dataInit'
 import CardProduct from '../components/Modals/Product/CardProduct'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllProductThunk } from '../store/slices/products.slice'
 
 
 const InventoryPage = () => {
@@ -13,20 +14,20 @@ const InventoryPage = () => {
 
     /* ----------------- Carga de funciones esenciales -----------------------*/
     const { getAllProducts, getAllCategoriesProducts, getAllTags, getAllSuppliers, getAllSizes, getAllCollections } = dataInit()
-
+    const dispatch = useDispatch()
     const products = useSelector(state => state.products.productsStore)
-
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 await Promise.all([
-                    getAllProducts(),
+                    dispatch(getAllProductThunk()),                     
                     getAllCategoriesProducts(),
                     getAllTags(),
                     getAllSuppliers(),
                     getAllSizes(),
                     getAllCollections(),
-                ]);                
+                ]);
             } catch (err) {
                 console.log('No se cargado los datos iniciales');
             }
@@ -34,6 +35,7 @@ const InventoryPage = () => {
         fetchData();
     }, [])
 
+    
     const handleAddProduct = () => {
         setIsModalProduct(true)
     }
@@ -58,22 +60,23 @@ const InventoryPage = () => {
                         </div>
                     </div>
                 </div>
+                {
+                    products?.map(product => (
+                        <div
+                            className="inventory_page_product_container"
+                            key={product.id}
+                        >
+                            <CardProduct product={product} />
+                        </div>
+                    ))
+                }
 
             </div>
             {
                 isModalProduct && <AddProducts setIsModalProduct={setIsModalProduct} />
             }
-            
-            {
-                products.map(product => (
-                    <div 
-                        className="inventory_page_product_container"
-                        key={product.id}
-                    >
-                         <CardProduct product={product}/>
-                    </div>
-                ))
-            }
+
+
         </>
     )
 }

@@ -78,31 +78,30 @@ const Contact = () => {
                         Agregar Producto
                     </button>
                 </div>
-                <div className="mb-4">
+                <div className="">
                     <input
                         type="text"
                         placeholder="Buscar producto"
-                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                        className=""
                         // value={searchText} // Enlaza el valor del input al estado searchText
                         // onChange={handleSearchInput} // Maneja el evento onChange para actualizar el estado de búsqueda
                     />
                 </div>
-                <div className="bg-waikana-gray-100 rounded-t-lg">
-                    <table className="w-full text-sm text-waikana-gray-700">
+                <div className="">
+                    <table className="">
                         <thead className=''>
-                            <tr className='bg-waikana-gray-200'>
-                                <th className="text-start py-2 px-4 rounded-tl-lg">SKU</th>
-                                <th className="text-start py-2 px-4 ">Imagen</th>
-                                <th className="text-start py-2 px-4 ">Titulo</th>
-                                <th className="text-start py-2 px-4 ">Descripcion</th>
-                                <th className="text-start py-2 px-4 ">Coleccion</th>
-                                <th className="text-start py-2 px-4 ">Stock</th>
-                                <th className="text-start py-2 px-4 ">P/unitario</th>
-                                <th className="text-start py-2 px-4 ">Talla</th>
-                                <th className="text-start py-2 px-4 ">Categoria</th>
-                                <th className="text-start py-2 px-4 ">Tags</th>
-                                <th className="text-start py-2 px-4 rounded-tr-lg">Acciones</th>
-
+                            <tr className=''>
+                                <th className="">SKU</th>
+                                <th className="">Imagen</th>
+                                <th className="">Titulo</th>
+                                <th className="">Descripcion</th>
+                                <th className="">Colección</th>
+                                <th className="">Stock</th>
+                                <th className="">P/unitario</th>
+                                <th className="">Talla</th>
+                                <th className="">Categoria</th>
+                                <th className="">Tags</th>
+                                <th className="">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

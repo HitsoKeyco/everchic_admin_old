@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
-import dataInit from '../hooks/data/dataInit'
+import ContactPage from './ContactPage'
+
 
 const HomePage = () => {
-
+  
 
   return (
-    <div>HomePage</div>
+    <>
+
+    </>
   )
 }
 

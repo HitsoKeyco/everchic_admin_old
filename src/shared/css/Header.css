@@ -77,3 +77,10 @@
     cursor: pointer;
 
 }
+
+.header_menu:hover{
+    font-size: 1.5em;
+    color: var(--colorText_hover);
+    cursor: pointer;
+
+}

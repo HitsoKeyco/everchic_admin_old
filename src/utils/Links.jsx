@@ -5,8 +5,9 @@ import ContactPage from '../page/ContactPage';
 import OrderPage from '../page/OrderPage';
 import FinancePage from '../page/FinancePage';
 import InventoryPage from '../page/InventoryPage';
-import ChatPage from '../page/ChatPage';
+
 import Header from '../shared/Header';
+import ProfilePage from '../page/ProfilePage';
 
 
 const Links = () => {
@@ -14,18 +15,15 @@ const Links = () => {
 
 
     return (
-        <>  
-        
-            <Header />
-        
-        
+        <>          
+                   
             <Routes>                
-                <Route path='home' element={<HomePage/>}/>
+                <Route path='/' element={<HomePage/>}/>
                 <Route path='contacts' element={<ContactPage/>}/>                
                 <Route path='orders' element={<OrderPage/>}/>
                 <Route path='finance' element={<FinancePage/>}/>
                 <Route path='inventory' element={<InventoryPage/>}/>
-                <Route path='chat' element={<ChatPage/>}/>
+                <Route path='profile' element={<ProfilePage/>}/>
             </Routes>
         </>
     );

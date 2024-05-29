@@ -342,6 +342,7 @@ const AddProduct = ({ setIsModalCreate, setUpdate }) => {
                     />
                     {errors.stock && <p>{errors.stock.message}</p>}
                   </div>
+                  
                 </div>
                 <div className='flex gap-4'>
                   <div className='flex-1'>

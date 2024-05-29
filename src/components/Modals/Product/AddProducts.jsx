@@ -4,8 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
-import addProductBD from "../../../hooks/products/addProductBD";
-import dataInit from "../../../hooks/data/dataInit";
+import { addProductThunk } from "../../../store/slices/products.slice";
 
 const AddProducts = ({ setIsModalProduct }) => {
 
@@ -87,14 +86,12 @@ const AddProducts = ({ setIsModalProduct }) => {
         setTags(tag)
     };
 
-    const { getAllProducts } = dataInit()
 
     const submit = async (data) => {
-        await addProductBD(data, tags, imageFiles);
-        getAllProducts();
+        dispatch(addProductThunk(data, tags, imageFiles))
         setIsModalProduct(false);
     };
-    
+
 
     return (
         <>
@@ -118,24 +115,29 @@ const AddProducts = ({ setIsModalProduct }) => {
                     {/*------------------------------\\ Images Load  //-----------------------------------*/}
 
                     <div className='add_product_images_load_container'>
-                        {imageFiles.map((image, index) => (
-                            <div key={index} className="add_product_images_load">
-                                <img
-                                    src={URL.createObjectURL(image)}
-                                    alt={`Miniatura ${index + 1}`}
-                                    className={`add_product_images ${selectedImages === image ? "add_product_images_border" : ""}`}
-                                    onClick={() => handleThumbnailClick(index)}
-                                />
-                                <div
-                                    className=''
-                                    onClick={() => handleRemoveImage(index)}
-                                >
-                                    <i className='bx bx-x add_product_icon_delete_image'></i>
+                        {
+                            imageFiles.length === 0 && <p className="add_product_img_msj">¡Imagenes!</p>
+                        }
+                        {
+                            imageFiles.map((image, index) => (
+                                <div key={index} className="add_product_images_img_container">
+                                    <img
+                                        src={URL.createObjectURL(image)}
+                                        alt={`Miniatura ${index + 1}`}
+                                        className={`add_product_images ${selectedImages === image && "add_product_images_border"}`}
+                                        onClick={() => handleThumbnailClick(index)}
+                                    />
+                                    <div
+                                        className=''
+                                        onClick={() => handleRemoveImage(index)}
+                                    >
+                                        <i className='bx bx-x add_product_icon_delete_image'></i>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                     </div>
 
+                    {/*------------------------------\\ Input img //-----------------------------------*/}
 
                     {
                         imageFiles.length < 4 &&
@@ -143,13 +145,13 @@ const AddProducts = ({ setIsModalProduct }) => {
                             type="file"
                             accept="image/*"
                             onChange={handleImageUpload}
-                            className="add_contact_input_image"
+                            className="add_product_input_image"
                             multiple
                         />
                     }
 
                     {/*------------------------------\\ Tags //-----------------------------------*/}
-                    <div className="add_contact_label_container">
+                    <div className="add_product_label_container">
                         <TagsInput
                             value={tags}
                             onChange={handleTagsChange}
@@ -159,7 +161,7 @@ const AddProducts = ({ setIsModalProduct }) => {
                     {/*------------------------------\\ SKU //-----------------------------------*/}
                     <div className="">
                         <div className=''>
-                            <label className="add_contact_label" htmlFor="sku">
+                            <label className="add_product_label" htmlFor="sku">
                                 SKU:
                             </label>
                             <input
@@ -172,49 +174,63 @@ const AddProducts = ({ setIsModalProduct }) => {
                         </div>
                         {/*------------------------------\\ Title //-----------------------------------*/}
                         <div className=''>
-                            <label className="add_contact_label" htmlFor="title">
+                            <label className="add_product_label" htmlFor="title">
                                 Nombre producto:
                             </label>
                             <input
                                 type="text"
                                 id="title"
                                 name="title"
-                                className={`add_product_input ${errors.sku ? 'input-error' : ''}`}
+                                defaultValue='Calcetín de '
+                                className={`add_product_input ${errors.title ? 'input-error' : ''}`}
                                 {...register('title', { required: 'Este campo es obligatorio' })}
                             />
                         </div>
                         {/*------------------------------\\ Description //-----------------------------------*/}
                         <div className=''>
-                            <label className="add_contact_label" htmlFor="description">
+                            <label className="add_product_label" htmlFor="description">
                                 Descripcion:
                             </label>
                             <input
                                 type="text"
                                 id="description"
                                 name="description"
-                                defaultValue='Calcetin con tematica de'
-                                className={`add_product_input ${errors.sku ? 'input-error' : ''}`}
+                                defaultValue='Calcetín con tematica de '
+                                className={`add_product_input ${errors.description ? 'input-error' : ''}`}
                                 {...register('description', { required: 'Este campo es obligatorio' })}
                             />
                         </div>
-                        <div className="add_contact_group_elements_container">
+                        <div className="add_product_group_elements_container">
                             {/*------------------------------\\ Stock //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
-                                <label className="add_contact_label" htmlFor="stock">
+                            <div className='add_product_group_elements'>
+                                <label className="add_product_label" htmlFor="stock">
                                     Stock:
                                 </label>
                                 <input
                                     type="number"
                                     id="stock"
                                     name="stock"
-                                    className={`add_product_input ${errors.sku ? 'input-error' : ''}`}
+                                    className={`add_product_input ${errors.stock ? 'input-error' : ''}`}
                                     {...register('stock', { required: 'Este campo es obligatorio' })}
                                 />
-                                {errors.stock && <p>{errors.stock.message}</p>}
+                            </div>
+                            {/*------------------------------\\ Peso //-----------------------------------*/}
+                            <div className='add_product_group_elements'>
+                                <label className="add_product_label" htmlFor="weight">
+                                    Peso:
+                                </label>
+                                <input
+                                    type="number"
+                                    id="weight"
+                                    name="weight"
+                                    step="0.01"
+                                    className={`add_product_input ${errors.weight ? 'input-error' : ''}`}
+                                    {...register('weight', { required: 'Este campo es obligatorio' })}
+                                />
                             </div>
                             {/*------------------------------\\ Precio base costo //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
-                                <label className="add_contact_label" htmlFor="cost_price">
+                            <div className='add_product_group_elements'>
+                                <label className="add_product_label" htmlFor="cost_price">
                                     PP:
                                 </label>
                                 <input
@@ -222,15 +238,14 @@ const AddProducts = ({ setIsModalProduct }) => {
                                     id="cost_price"
                                     name="cost_price"
                                     step="0.01"
-                                    className={`add_product_input ${errors.sku ? 'input-error' : ''}`}
+                                    className={`add_product_input ${errors.cost_price ? 'input-error' : ''}`}
                                     {...register('cost_price', { required: 'Este campo es obligatorio' })}
-
                                 />
                             </div>
                             {/*------------------------------\\ PVP //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
+                            <div className='add_product_group_elements'>
                                 <label
-                                    className="add_contact_label"
+                                    className="add_product_label"
                                     htmlFor="sell_price"
                                     defaultValue='5.00'
                                 >
@@ -242,23 +257,23 @@ const AddProducts = ({ setIsModalProduct }) => {
                                     type="number"
                                     step="0.01"
                                     defaultValue="5.00"
-                                    className={`add_product_input ${errors.sku ? 'input-error' : ''}`}
+                                    className={`add_product_input ${errors.sell_price ? 'input-error' : ''}`}
                                     {...register('sell_price', { required: 'Este campo es obligatorio' })}
                                 />
                             </div>
                         </div>
 
-                        <div className="add_contact_group_elements_container">
+                        <div className="add_product_group_elements_container">
                             {/*------------------------------\\ Size //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
-                                <label htmlFor="size" className='add_product_label'>
+                            <div className='add_product_group_elements'>
+                                <label htmlFor="sizeId" className='add_product_label'>
                                     Talla:
                                 </label>
                                 <select
-                                    name="size"
-                                    id="size"
-                                    className={`add_product_select ${errors.size ? 'input-error' : ''}`}
-                                    {...register('size', { required: 'Este campo es obligatorio' })}
+                                    name="sizeId"
+                                    id="sizeId"
+                                    className={`add_product_select ${errors.sizeId ? 'input-error' : ''}`}
+                                    {...register('sizeId', { required: 'Este campo es obligatorio' })}
                                 >
                                     <option value="" defaultValue >Seleccione uno</option>
                                     {sizes?.map((size) => (
@@ -269,15 +284,15 @@ const AddProducts = ({ setIsModalProduct }) => {
                                 </select>
                             </div>
                             {/*------------------------------\\ Collection //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
-                                <label htmlFor="collection" className='add_product_label'>
+                            <div className='add_product_group_elements'>
+                                <label htmlFor="collectionId" className='add_product_label'>
                                     Coleccion:
                                 </label>
                                 <select
-                                    name="collection"
-                                    id="collection"
-                                    className={`add_product_select ${errors.collection ? 'input-error' : ''}`}
-                                    {...register('collection', { required: 'Este campo es obligatorio' })}
+                                    name="collectionId"
+                                    id="collectionId"
+                                    className={`add_product_select ${errors.collectionId ? 'input-error' : ''}`}
+                                    {...register('collectionId', { required: 'Este campo es obligatorio' })}
                                 >
                                     <option value="" defaultValue >Seleccione uno</option>
                                     {collections?.map((collection) => (
@@ -289,17 +304,17 @@ const AddProducts = ({ setIsModalProduct }) => {
                             </div>
                         </div>
 
-                        <div className="add_contact_group_elements_container">
+                        <div className="add_product_group_elements_container">
                             {/*------------------------------\\ Category //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
-                                <label htmlFor="category" className='add_product_label'>
+                            <div className='add_product_group_elements'>
+                                <label htmlFor="categoryId" className='add_product_label'>
                                     Categoria:
                                 </label>
                                 <select
-                                    name="category"
-                                    id="category"
-                                    className={`add_product_select ${errors.sku ? 'input-error' : ''}`}
-                                    {...register('category', { required: 'Este campo es obligatorio' })}
+                                    name="categoryId"
+                                    id="categoryId"
+                                    className={`add_product_select ${errors.categoryId ? 'input-error' : ''}`}
+                                    {...register('categoryId', { required: 'Este campo es obligatorio' })}
                                 >
                                     <option value="" defaultValue >Seleccione uno</option>
                                     {categories?.map((category) => (
@@ -309,18 +324,17 @@ const AddProducts = ({ setIsModalProduct }) => {
                                     ))}
                                 </select>
                             </div>
-                            {/*------------------------------\\ Tags //-----------------------------------*/}
 
                             {/*------------------------------\\ Supplier //-----------------------------------*/}
-                            <div className='add_contact_group_elements'>
-                                <label htmlFor="supplier" className='add_product_label'>
+                            <div className='add_product_group_elements'>
+                                <label htmlFor="supplierId" className='add_product_label'>
                                     Proveedor:
                                 </label>
                                 <select
-                                    name="supplier"
-                                    id="supplier"
-                                    className={`add_product_select ${errors.sku ? 'input-error' : ''}`}
-                                    {...register('supplier', { required: 'Este campo es obligatorio' })}
+                                    name="supplierId"
+                                    id="supplierId"
+                                    className={`add_product_select ${errors.supplierId ? 'input-error' : ''}`}
+                                    {...register('supplierId', { required: 'Este campo es obligatorio' })}
                                 >
                                     <option value="" defaultValue >Seleccione uno</option>
                                     {suppliers?.map((supplier) => (
@@ -332,16 +346,16 @@ const AddProducts = ({ setIsModalProduct }) => {
                             </div>
                         </div>
 
-                        <div className="add_contact_button_container">
+                        <div className="add_product_button_container">
                             <button
-                                className="add_contact_button_add"
+                                className="add_product_button_add"
                                 type="submit"
                             >
                                 Agregar
                             </button>
 
                             <button
-                                className="add_contact_button_cancel"
+                                className="add_product_button_cancel"
                                 onClick={() => setIsModalProduct(false)}
                             >
                                 Cancelar

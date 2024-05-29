@@ -1,7 +1,11 @@
 .inventory_page_container{
-    padding: 0 10px;
-    padding-top: 60px
-    
+    padding: 0 10px;    
+    padding-top: 60px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
 }
 .inventory_page_controller_user{
     display: flex;
