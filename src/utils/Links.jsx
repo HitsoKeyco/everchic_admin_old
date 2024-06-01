@@ -5,8 +5,6 @@ import ContactPage from '../page/ContactPage';
 import OrderPage from '../page/OrderPage';
 import FinancePage from '../page/FinancePage';
 import InventoryPage from '../page/InventoryPage';
-
-import Header from '../shared/Header';
 import ProfilePage from '../page/ProfilePage';
 
 

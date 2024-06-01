@@ -3,31 +3,32 @@ import getConfigAuth from "./getConfigAuth";
 
 
 export const createProductImagesTagsSize = async (imageFiles, productId, data, tags) => {
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const arrayImg = []
     for (const imageFile of imageFiles) {
         const formData = new FormData();
         formData.append('image', imageFile);
-        const res = await axios.post('http://localhost:8080/api/v1/product_images', formData, getConfigAuth());
+        const res = await axios.post(`${apiUrl}/product_images`, formData, getConfigAuth());
         arrayImg.push(res.data.id)
     }
 
     
 
     if (arrayImg) {
-        await axios.post(`http://localhost:8080/api/v1/products/${productId}/images`, arrayImg, getConfigAuth());
+        await axios.post(`${apiUrl}/products/${productId}/images`, arrayImg, getConfigAuth());
     }
 
     const productSize = {
         productId,
         sizeId: Number(data.size),
     }
-    await axios.post(`http://localhost:8080/api/v1/products/${productId}/addSize/${productSize.sizeId}`, productSize, getConfigAuth());
+    await axios.post(`${apiUrl}/products/${productId}/addSize/${productSize.sizeId}`, productSize, getConfigAuth());
 
     
 
     if (tags) {
-        const urlTags = `http://localhost:8080/api/v1/tags/${productId}/relateTags`;
+        const urlTags = `${apiUrl}/tags/${productId}/relateTags`;
 
         axios.post(urlTags, tags, getConfigAuth())
         .then(res =>  {
@@ -47,28 +48,28 @@ export const updateProductImagesTagsSize = async (imageFiles, productId, data, t
     for (const imageFile of imageFiles) {
         const formData = new FormData();
         formData.append('image', imageFile);
-        const res = await axios.post('http://localhost:8080/api/v1/product_images', formData, getConfigAuth());
+        const res = await axios.post(`${apiUrl}/product_images`, formData, getConfigAuth())
         arrayImg.push(res.data.id)
     }
 
     
 
     if (arrayImg) {
-        await axios.post(`http://localhost:8080/api/v1/products/${productId}/images`, arrayImg, getConfigAuth());
+        await axios.post(`${apiUrl}/products/${productId}/images`, arrayImg, getConfigAuth());
     }
 
     const productSize = {
         productId,
         sizeId: Number(data.size),
     }
-    await axios.post(`http://localhost:8080/api/v1/products/${productId}/addSize/${productSize.sizeId}`, productSize, getConfigAuth());
+    await axios.post(`${apiUrl}/products/${productId}/addSize/${productSize.sizeId}`, productSize, getConfigAuth());
 
     if (tags) {
         for (const tagName of tags) {
             const tagData = {
                 name: tagName,
             };
-            const postTag = await axios.post('http://localhost:8080/api/v1/tags', tagData, getConfigAuth());
+            const postTag = await axios.post('${apiUrl}/tags', tagData, getConfigAuth());
             
 
 
@@ -78,7 +79,7 @@ export const updateProductImagesTagsSize = async (imageFiles, productId, data, t
                     productId,
                     tagId: Number(postTag.id)
                 }
-                const res =  await axios.post(`http://localhost:8080/api/v1/products/${productId}/addTag/${postTag.data.id}`, dataProductTag, getConfigAuth());
+                const res =  await axios.post(`${apiUrl}/products/${productId}/addTag/${postTag.data.id}`, dataProductTag, getConfigAuth());
                 
                 if (res){
                     setUpdate(true)

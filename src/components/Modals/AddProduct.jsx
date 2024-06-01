@@ -12,7 +12,7 @@ import { createProductImagesTagsSize } from '../../../../utils/addImages'
 
 const AddProduct = ({ setIsModalCreate, setUpdate }) => {
   const MySwal = withReactContent(Swal);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { supplierAPI, getSupplier, categoryAPI, getCategory, sizeAPI, getsize, collectionAPI, getCollection } = getApiProducts();
 
   const { register, handleSubmit, formState: { errors, isSubmitted } } = useForm();
@@ -73,7 +73,7 @@ const AddProduct = ({ setIsModalCreate, setUpdate }) => {
         collectionId: Number(data.collection),
       };
 
-      const product = await axios.post('http://localhost:8080/api/v1/products', productData, getConfigAuth());
+      const product = await axios.post(`${apiUrl}/products`, productData, getConfigAuth());
       const productId = product.data.id
 
       if (productId) {

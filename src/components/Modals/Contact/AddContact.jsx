@@ -14,11 +14,11 @@ const AddContact = ({ setIsModalCreate, isRolApi }) => {
         setIsModalCreate(false)
     }
 
-    // // ----- Event submit form ------
-    // const submit = async (data) => {
-    //     createContact(data);
-    //     setIsModalCreate(false);
-    // }
+    // ----- Event submit form ------
+    const submit = async (data) => {
+        createContact(data);
+        setIsModalCreate(false);
+    }
 
     return (
         <div className="add_contact_container">
